@@ -1,0 +1,231 @@
+package com.xmppapp.developer.adapter;
+
+import java.io.FileNotFoundException;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
+import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.xmppapp.R;
+import com.xmppapp.androidapp.MainActivity;
+import com.xmppapp.developer.model.ChatModel;
+import com.xmppapp.developer.utils.Global;
+import com.xmppapp.xmpp.entities.Contact;
+import com.xmppapp.xmpp.entities.Conversation;
+import com.xmppapp.xmpp.entities.Message;
+import com.xmppapp.xmpp.utils.UIHelper;
+
+public class ChatAdapter extends BaseAdapter {
+
+	private LayoutInflater mInflater;
+	private ArrayList<ChatModel> list;
+
+	private List<Conversation> conversations;
+	private MainActivity context;
+	private DisplayMetrics metrics;
+	private BitmapCache mBitmapCache = new BitmapCache();
+
+	public ChatAdapter(MainActivity context, List<Conversation> conversations) {
+		// TODO Auto-generated constructor stub
+		mInflater = LayoutInflater.from(context);
+		this.context = context;
+		this.conversations = conversations;
+		this.list = getList(conversations);
+		metrics = context.getResources().getDisplayMetrics();
+	}
+
+	private ArrayList<ChatModel> getList(List<Conversation> conversations) {
+		ArrayList<ChatModel> mList = new ArrayList<ChatModel>();
+		for (Conversation conversation : conversations) {
+			ChatModel chatModel = new ChatModel(conversation.getName(false), conversation.getLatestMessage().getBody(), Global.getTime(conversation
+					.getLatestMessage().getTimeSent()), conversation.getLatestMessage(), R.drawable.ic_notification);
+			mList.add(chatModel);
+		}
+		return mList;
+	}
+
+	@Override
+	public int getCount() {
+		// TODO Auto-generated method stub
+		return list.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		// TODO Auto-generated method stub
+		return list.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		// TODO Auto-generated method stub
+		return position;
+	}
+
+	@Override
+	public View getView(int position, View view, ViewGroup arg2) {
+		// TODO Auto-generated method stub
+		final ViewHolder holder;
+		if (view == null) {
+			view = mInflater.inflate(R.layout.adapter_chat_list_item, null);
+			holder = new ViewHolder();
+
+			holder.user_pic = (ImageView) view.findViewById(R.id.user_pic);
+			holder.name = (TextView) view.findViewById(R.id.name);
+			holder.contact_message = (TextView) view.findViewById(R.id.contact_message);
+			holder.time = (TextView) view.findViewById(R.id.time);
+			holder.status = (ImageView) view.findViewById(R.id.marker);
+
+			view.setTag(holder);
+		} else {
+			holder = (ViewHolder) view.getTag();
+		}
+
+		holder.name.setText(list.get(position).name);
+		holder.contact_message.setText(list.get(position).message);
+		holder.time.setText(list.get(position).time);
+		// loadBitmap(list.get(position).img, holder.user_pic);
+		holder.user_pic.setImageBitmap(mBitmapCache.get(conversations.get(position).getContact(), context));
+		holder.status.setImageResource(list.get(position).statusRes);
+
+		return view;
+	}
+
+	static class ViewHolder {
+		public ImageView user_pic, status;
+		public TextView name, contact_message, time;
+	}
+
+	public void loadBitmap(Message message, ImageView imageView) {
+		Bitmap bm;
+		try {
+			bm = getActivity().xmppConnectionService.getFileBackend().getThumbnail(message, (int) (metrics.density * 288), true);
+		} catch (FileNotFoundException e) {
+			bm = null;
+		}
+		if (bm != null) {
+			imageView.setImageBitmap(bm);
+			imageView.setBackgroundColor(0x00000000);
+		} else {
+			if (cancelPotentialWork(message, imageView)) {
+				imageView.setBackgroundColor(0xff333333);
+				final BitmapWorkerTask task = new BitmapWorkerTask(imageView);
+				final AsyncDrawable asyncDrawable = new AsyncDrawable(getActivity().getResources(), null, task);
+				imageView.setImageDrawable(asyncDrawable);
+				task.execute(message);
+			}
+		}
+	}
+
+	public static boolean cancelPotentialWork(Message message, ImageView imageView) {
+		final BitmapWorkerTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
+
+		if (bitmapWorkerTask != null) {
+			final Message oldMessage = bitmapWorkerTask.message;
+			if (oldMessage == null || message != oldMessage) {
+				bitmapWorkerTask.cancel(true);
+			} else {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private static BitmapWorkerTask getBitmapWorkerTask(ImageView imageView) {
+		if (imageView != null) {
+			final Drawable drawable = imageView.getDrawable();
+			if (drawable instanceof AsyncDrawable) {
+				final AsyncDrawable asyncDrawable = (AsyncDrawable) drawable;
+				return asyncDrawable.getBitmapWorkerTask();
+			}
+		}
+		return null;
+	}
+
+	static class AsyncDrawable extends BitmapDrawable {
+		private final WeakReference<BitmapWorkerTask> bitmapWorkerTaskReference;
+
+		public AsyncDrawable(Resources res, Bitmap bitmap, BitmapWorkerTask bitmapWorkerTask) {
+			super(res, bitmap);
+			bitmapWorkerTaskReference = new WeakReference<BitmapWorkerTask>(bitmapWorkerTask);
+		}
+
+		public BitmapWorkerTask getBitmapWorkerTask() {
+			return bitmapWorkerTaskReference.get();
+		}
+	}
+
+	class BitmapWorkerTask extends AsyncTask<Message, Void, Bitmap> {
+		private final WeakReference<ImageView> imageViewReference;
+		private Message message = null;
+
+		public BitmapWorkerTask(ImageView imageView) {
+			imageViewReference = new WeakReference<ImageView>(imageView);
+		}
+
+		@Override
+		protected Bitmap doInBackground(Message... params) {
+			message = params[0];
+			try {
+				return getActivity().xmppConnectionService.getFileBackend().getThumbnail(message, (int) (metrics.density * 288), false);
+			} catch (FileNotFoundException e) {
+				return null;
+			}
+		}
+
+		@Override
+		protected void onPostExecute(Bitmap bitmap) {
+			if (imageViewReference != null && bitmap != null) {
+				final ImageView imageView = imageViewReference.get();
+				if (imageView != null) {
+					imageView.setImageBitmap(bitmap);
+					imageView.setBackgroundColor(0x00000000);
+				}
+			}
+		}
+	}
+
+	private MainActivity getActivity() {
+		return ((MainActivity) context);
+
+	}
+
+	private class BitmapCache {
+		private HashMap<String, Bitmap> contactBitmaps = new HashMap<String, Bitmap>();
+		private HashMap<String, Bitmap> unknownBitmaps = new HashMap<String, Bitmap>();
+
+		public Bitmap get(Contact contact, Context context) {
+			if (contactBitmaps.containsKey(contact.getJid())) {
+				return contactBitmaps.get(contact.getJid());
+			} else {
+				Bitmap bm = UIHelper.getContactPicture(contact, 48, context, false);
+				contactBitmaps.put(contact.getJid(), bm);
+				return bm;
+			}
+		}
+
+		public Bitmap get(String name, Context context) {
+			if (unknownBitmaps.containsKey(name)) {
+				return unknownBitmaps.get(name);
+			} else {
+				Bitmap bm = UIHelper.getContactPicture(name, 48, context, false);
+				unknownBitmaps.put(name, bm);
+				return bm;
+			}
+		}
+	}
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="android.app.LauncherActivity.ListItem"/>
+<fullyQualifiedTypeName name="com.xmppapp.xmpp.entities.ListItem"/>
+<fullyQualifiedTypeName name="com.developer.MainActivity"/>
+<fullyQualifiedTypeName name="com.developer.utils.Global"/>
+<fullyQualifiedTypeName name="com.example.androidapp.R"/>
+<fullyQualifiedTypeName name="com.xmppapp.xmpp.ui.XmppActivity"/>
+<fullyQualifiedTypeName name="com.xmppapp.verification.Result"/>
+<fullyQualifiedTypeName name="com.xmppapp.xmpp.entities.Account"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+</qualifiedTypeNameHistroy>

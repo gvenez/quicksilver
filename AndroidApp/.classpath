@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry excluding="com/xmppapp/xmpp/ui/ConferenceDetailsActivity.java|com/xmppapp/xmpp/ui/ConversationActivity.java|com/xmppapp/xmpp/ui/ConversationFragment.java|com/xmppapp/xmpp/ui/EditAccountDialog.java|com/xmppapp/xmpp/ui/ManageAccountActivity.java|com/xmppapp/xmpp/ui/ShareWithActivity.java|com/xmppapp/xmpp/ui/adapter/" kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="output" path="bin/classes"/>
+</classpath>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/bg_color_left_dark"
+    android:padding="10dp" >
+    
+    
+    <RelativeLayout android:id="@+id/layout1"
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content" >
+    	
+	        
+	    <ImageView android:id="@+id/user_pic"
+			android:layout_width="60dp"
+			android:layout_height="60dp"
+			android:adjustViewBounds="false"
+			android:scaleType="fitXY"
+			android:layout_marginRight="5dp"
+	    	android:layout_alignParentLeft="true"
+		    android:src="@drawable/pic4" />
+	    
+	    <TextView android:id="@+id/name"
+			android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+	    	android:layout_toRightOf="@+id/user_pic"
+		    android:paddingRight="5dp"
+		    android:textColor="@android:color/holo_orange_dark"
+		    android:textSize="16sp"
+		    android:textStyle="bold"
+		    android:text="Sarah Stevens" />
+	    
+	    <TextView android:id="@+id/time"
+			android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+	    	android:layout_below="@+id/name"
+	    	android:layout_toRightOf="@+id/user_pic"
+	    	android:layout_alignLeft="@+id/user"
+		    android:layout_marginTop="5dp"
+		    android:paddingRight="5dp"
+		    android:singleLine="true"
+		    android:textColor="@android:color/white"
+		    android:textSize="14sp"
+		    android:textStyle="normal"
+		    android:text="Today 10:35 pm" />
+	    
+	</RelativeLayout>
+	
+	<TextView android:id="@+id/detail_text"
+			android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginTop="5dp"
+		    android:paddingRight="5dp"
+		    android:textColor="@android:color/white"
+		    android:textSize="14sp"
+		    android:textStyle="normal"
+		    android:text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.." />
+	
+	<RelativeLayout android:id="@+id/layout2"
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_marginTop="15dp" >
+    	
+	    <TextView android:id="@+id/text_like"
+			android:layout_width="100dp"
+		    android:layout_height="wrap_content"
+		    android:padding="5dp"
+		    android:background="@drawable/bg_like"
+		    android:textColor="@android:color/holo_orange_dark"
+		    android:textSize="16sp"
+		    android:textStyle="bold"
+		    android:text="+15" />
+	    
+	    <TextView android:id="@+id/likes"
+			android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+			android:layout_alignBottom="@+id/text_like"
+			android:layout_alignParentRight="true"
+		    android:paddingRight="5dp"
+		    android:textColor="@color/green_color"
+		    android:textSize="16sp"
+		    android:textStyle="bold"
+		    android:text="+15" />
+	    
+	    <ImageView android:id="@+id/logo_like"
+			android:layout_width="16dp"
+			android:layout_height="16dp"
+			android:adjustViewBounds="false"
+			android:layout_alignBottom="@+id/text_like"
+			android:layout_toLeftOf="@+id/likes"
+			android:scaleType="fitXY"
+			android:layout_marginRight="5dp"
+		    android:src="@drawable/chat_menu_icon" />
+	    
+	</RelativeLayout>
+</LinearLayout>

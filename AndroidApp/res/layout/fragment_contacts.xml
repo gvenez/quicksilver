@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+            
+            <com.developer.custom.CustomGridView
+		        android:id="@+id/gridView1"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_margin="10dp"
+		        android:numColumns="3"
+		        android:verticalSpacing="0dp"
+		        android:horizontalSpacing="0dp"
+		        android:stretchMode="columnWidth" />
+		    
+				
+			<TextView
+		    	android:id="@+id/contact_label"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="10dp"
+		        android:layout_marginLeft="20dp"
+		        android:singleLine="true"
+		        android:textColor="@android:color/darker_gray"
+		        android:textStyle="bold"
+		        android:textSize="16sp"
+		        android:text="InTouch Contacts" />
+			
+			<View 
+		        android:layout_width="match_parent"
+		        android:layout_height="1px"
+		        android:layout_marginTop="5dp"
+		        android:layout_marginLeft="10dp"
+		        android:layout_marginRight="10dp"
+		        android:background="@color/text_gray" />
+			
+			<!-- android:listSelector="@android:color/transparent" -->
+			<com.developer.custom.CustomListView
+				android:id="@+id/contact_list_view"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+				android:scrollbars="vertical"
+				android:drawSelectorOnTop="true"
+				android:cacheColorHint="@android:color/transparent" />
+			
+			<TextView
+		    	android:id="@+id/other_contact_label"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="10dp"
+		        android:layout_marginLeft="20dp"
+		        android:singleLine="true"
+		        android:textColor="@android:color/darker_gray"
+		        android:textStyle="bold"
+		        android:textSize="16sp"
+		        android:text="Other Contacts" />
+			
+			<View 
+		        android:layout_width="match_parent"
+		        android:layout_height="1px"
+		        android:layout_marginTop="5dp"
+		        android:layout_marginLeft="10dp"
+		        android:layout_marginRight="10dp"
+		        android:background="@color/text_gray" />
+			
+			<!-- android:listSelector="@android:color/transparent" -->
+			<com.developer.custom.CustomListView
+				android:id="@+id/other_contact_list_view"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+				android:scrollbars="vertical"
+				android:drawSelectorOnTop="true"
+				android:cacheColorHint="@android:color/transparent" />
+        </LinearLayout>
+    </ScrollView>
+
+    
+		
+</LinearLayout>

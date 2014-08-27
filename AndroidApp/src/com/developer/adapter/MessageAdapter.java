@@ -1,0 +1,175 @@
+package com.developer.adapter;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.developer.model.Messages;
+import com.example.androidapp.R;
+import com.xmppapp.xmpp.entities.Contact;
+import com.xmppapp.xmpp.entities.Message;
+import com.xmppapp.xmpp.utils.UIHelper;
+
+/**
+ * AwesomeAdapter is a Custom class to implement custom row in ListView
+ * 
+ */
+public class MessageAdapter extends BaseAdapter {
+	private Context mContext;
+	private ArrayList<Messages> mMessages;
+	private Bitmap accountBitmap;
+	private List<Message> messagess;
+	private BitmapCache mBitmapCache = new BitmapCache();
+
+	private static final int MSG_LEFT = 0;
+	private static final int MSG_RIGHT = 1;
+
+	public MessageAdapter(Context context, ArrayList<Messages> messages) {
+		super();
+		this.mContext = context;
+		this.mMessages = messages;
+		this.messagess = new ArrayList<Message>();
+	}
+
+	private Bitmap getSelfBitmap() {
+		if (this.accountBitmap == null) {
+			if (this.messagess.size() > 0) {
+				this.accountBitmap = this.messagess.get(0).getConversation().getAccount().getImage(mContext, 48);
+			}
+		}
+		return this.accountBitmap;
+	}
+
+	@Override
+	public int getCount() {
+		return mMessages.size();
+	}
+
+	@Override
+	public Messages getItem(int position) {
+		return mMessages.get(position);
+	}
+
+	@Override
+	public int getItemViewType(int position) {
+		Messages message = getItem(position);
+		if (message.isMine()) {
+			return MSG_RIGHT;
+
+		} else {
+			return MSG_LEFT;
+
+		}
+	}
+
+	@Override
+	public int getViewTypeCount() {
+		return 2;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		Messages message = (Messages) this.getItem(position);
+
+		ViewHolder holder;
+		if (convertView == null) {
+
+			if (getItemViewType(position) == MSG_RIGHT) {
+				convertView = LayoutInflater.from(mContext).inflate(R.layout.adapter_message_right, parent, false);
+
+			} else if (getItemViewType(position) == MSG_LEFT) {
+
+				convertView = LayoutInflater.from(mContext).inflate(R.layout.adapter_message_left, parent, false);
+			}
+			holder = new ViewHolder();
+
+			convertView.setTag(holder);
+
+			holder.initUIElements(convertView, mContext);
+		} else
+			holder = (ViewHolder) convertView.getTag();
+
+		if (getItemViewType(position) == MSG_RIGHT) {
+			holder.configureValues(message, convertView, getSelfBitmap());
+			// holder.configureValues(message, convertView,
+			// mBitmapCache.get(messagess.get(position).getContact(),
+			// mContext));
+		} else if (getItemViewType(position) == MSG_LEFT) {
+			holder.configureValues(message, convertView, mBitmapCache.get(messagess.get(position).getContact(), mContext));
+		}
+
+		return convertView;
+	}
+
+	private static class ViewHolder {
+		TextView message, time;
+		ImageView imgv;
+
+		public void initUIElements(View view, Context context) {
+			message = (TextView) view.findViewById(R.id.message_text);
+			time = (TextView) view.findViewById(R.id.message_time);
+			imgv = (ImageView) view.findViewById(R.id.user_pic_msg);
+		}
+
+		public void configureValues(Messages message, View view, Bitmap bmp) {
+			Log.e("MINE", "" + message.isMine());
+			try {
+				if (message.isMine()) {
+					imgv.setImageBitmap(bmp);
+				} else {
+					imgv.setImageBitmap(bmp);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			this.message.setText(message.getSpanMessage());
+			this.time.setText(message.getTimeOfMessage());
+		}
+	}
+
+	@Override
+	public long getItemId(int position) {
+		// Unimplemented, because we aren't using Sqlite.
+		return position;
+	}
+
+	public void setMessages(List<Message> messages) {
+		this.messagess = messages;
+	}
+
+	private class BitmapCache {
+		private HashMap<String, Bitmap> contactBitmaps = new HashMap<String, Bitmap>();
+		private HashMap<String, Bitmap> unknownBitmaps = new HashMap<String, Bitmap>();
+
+		public Bitmap get(Contact contact, Context context) {
+			if (contactBitmaps.containsKey(contact.getJid())) {
+				return contactBitmaps.get(contact.getJid());
+			} else {
+				Bitmap bm = UIHelper.getContactPicture(contact, 48, context, false);
+				contactBitmaps.put(contact.getJid(), bm);
+				return bm;
+			}
+		}
+
+		public Bitmap get(String name, Context context) {
+			if (unknownBitmaps.containsKey(name)) {
+				return unknownBitmaps.get(name);
+			} else {
+				Bitmap bm = UIHelper.getContactPicture(name, 48, context, false);
+				unknownBitmaps.put(name, bm);
+				return bm;
+			}
+		}
+	}
+}

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.androidapp.ImprovedSlidingPaneLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/sliding_panel_layout" >
+    
+    <RelativeLayout
+        android:id="@+id/menu"
+        android:layout_height="match_parent"
+        android:layout_width="200dp"
+        android:background="@color/bg_color_left" >
+        
+        
+	    <RelativeLayout
+	        android:id="@+id/profile_info"
+	        android:layout_height="160px"
+	        android:layout_width="match_parent"
+	        android:background="@drawable/profile_info_bg" >
+	        
+	        <ImageView android:id="@+id/profile_pic"
+	            android:layout_width="50dp"
+		        android:layout_height="50dp"
+		        android:scaleType="fitXY"
+		        android:layout_alignParentBottom="true"
+		        android:layout_marginLeft="5dp"
+		        android:layout_marginBottom="5dp"
+		        android:src="@drawable/profile_pic" />
+	        
+	        <TextView 
+				android:id="@+id/user_name"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_toRightOf="@+id/profile_pic"
+			    android:layout_alignTop="@+id/profile_pic"
+			    android:layout_marginTop="5dp"
+			    android:layout_marginLeft="5dp"
+			    android:singleLine="true"
+			    android:text="Ganesh Krishnan"
+			    android:textSize="13dp"
+			    android:textColor="@color/red_color"
+			    android:textStyle="bold" />
+	        
+	        
+	        <TextView 
+				android:id="@+id/phone_number"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_below="@+id/user_name"
+			    android:layout_alignLeft="@+id/user_name"
+			    android:layout_marginTop="5dp"
+			    android:singleLine="true"
+			    android:text="+61 481346000"
+			    android:textSize="13dp"
+			    android:textColor="@color/green_color"
+			    android:textStyle="bold" />
+        
+		</RelativeLayout>
+			        
+        <ListView android:id="@+id/menu_list"
+            android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/profile_info"
+	        android:layout_above="@+id/menu_bottom"
+	        android:scrollbars="none"
+	    	android:cacheColorHint="@android:color/transparent"
+	    	android:listSelector="@drawable/default_click_selector" />
+        
+        
+	    <LinearLayout
+	        android:id="@+id/menu_bottom"
+	        android:layout_height="75px"
+	        android:layout_width="match_parent"
+			android:layout_alignParentBottom="true"
+			android:gravity="center"
+	        android:background="@color/bg_color_left_dark" >
+	        
+			<TextView 
+				android:layout_width="wrap_content"
+			    android:layout_height="20dp"
+			    android:paddingLeft="5dp"
+			    android:paddingRight="5dp"
+			    android:background="@color/red_color"
+			    android:text="5"
+			    android:gravity="center"
+			    android:textSize="14dp"
+			    android:textColor="@android:color/white"
+			    android:textStyle="bold" />
+			
+			<TextView 
+				android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:paddingLeft="5dp"
+			    android:text="Notifications"
+			    android:textSize="14dp"
+			    android:textColor="@android:color/white"
+			    android:textStyle="bold" />
+	        
+		</LinearLayout>	        
+        
+    </RelativeLayout>
+    
+    
+    <!-- @@@@@@  Right side contents @@@@@ -->
+	<LinearLayout
+	    android:id="@+id/content"
+	    android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+        
+	    
+        <RelativeLayout
+			android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal"
+            android:background="@color/bg_color_left" >
+            
+            <ImageView
+		        android:id="@+id/menu_button"
+		    	android:layout_width="45dp"
+		    	android:layout_height="45dp"
+		    	android:layout_centerVertical="true"
+		    	android:padding="8dp"
+		    	android:src="@drawable/menu_icon"
+		    	android:contentDescription="@string/app_name" />
+            <!-- 
+            <LinearLayout android:id="@+id/title_layout"
+		    	android:layout_width="wrap_content"
+		    	android:layout_centerInParent="true"
+		    	android:layout_height="wrap_content" >
+		    	
+                <ImageView
+			    	android:id="@+id/title_icon"
+			    	android:layout_width="15dp"
+			    	android:layout_height="15dp"
+			    	android:layout_marginTop="2dp"
+			    	android:layout_marginRight="3dp"
+			    	android:src="@drawable/latest_quote_w"
+			    	 />
+	            <TextView 
+			    	android:id="@+id/title"
+			    	android:layout_width="wrap_content"
+			    	android:layout_height="wrap_content"
+			    	android:text="@string/default_option"
+			    	android:textAllCaps="true"
+			        android:textSize="14dp"
+			        android:textColor="@android:color/white"
+			        android:textStyle="bold" />
+            </LinearLayout> -->
+            
+            <ImageView
+		        android:id="@+id/map_button"
+		    	android:layout_width="35dp"
+		    	android:layout_height="35dp"
+		    	android:layout_centerVertical="true"
+		    	android:layout_toLeftOf="@+id/refresh_button"
+		    	android:layout_marginRight="5dp"
+		    	android:src="@drawable/pin"
+		    	android:contentDescription="@string/app_name" />
+            
+            <ImageView
+		        android:id="@+id/refresh_button"
+		    	android:layout_width="35dp"
+		    	android:layout_height="35dp"
+		    	android:layout_centerVertical="true"
+		    	android:layout_alignParentRight="true"
+		    	android:layout_marginRight="5dp"
+		    	android:src="@drawable/refresh"
+		    	android:contentDescription="@string/app_name" />
+        </RelativeLayout>
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dip"
+            android:background="#000" />
+        
+        <!-- Fragments Transaction Dynamically -->
+        <FrameLayout 
+            android:id="@+id/fragment_home"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:background="@android:color/white" />
+        
+	</LinearLayout>
+</com.example.androidapp.ImprovedSlidingPaneLayout>
