@@ -7,9 +7,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.xmppapp.xmpp.entities.Account;
+import com.xmppapp.xmpp.entities.Contact;
+import com.xmppapp.xmpp.entities.Presences;
 
 public class FragmentProfile extends Fragment {
 
@@ -34,13 +41,25 @@ public class FragmentProfile extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		View view = inflater.inflate(R.layout.fragment_profile, container, false);
-		/**
-		 * ImageView img1 = (ImageView) view.findViewById(R.id.user_pic); Bitmap
-		 * bm = BitmapFactory.decodeResource(getResources(), R.drawable.pic2);
-		 * Bitmap resized = Bitmap.createScaledBitmap(bm, 100, 100, true);
-		 * Bitmap conv_bm = getRoundedRectBitmap(resized, 100);
-		 * img1.setImageBitmap(conv_bm);
-		 */
+
+		Bundle bundle = getArguments();
+		ImageView img1 = (ImageView) view.findViewById(R.id.user_pic);
+		TextView txtUserName = (TextView) view.findViewById(R.id.user_name);
+		TextView txtUserStatus = (TextView) view.findViewById(R.id.contact_status);
+
+		if (bundle != null) {
+			String acountJid = bundle.getString("jID");
+			String contactJid = bundle.getString("contactName");
+
+			Log.e("PROFILE", acountJid + "  " + contactJid);
+
+			Account account = getParentActivity().xmppConnectionService.findAccountByJid(acountJid);
+			Contact contact = account.getRoster().getContact(contactJid);
+			img1.setImageBitmap(contact.getImage(62, getActivity()));
+			txtUserName.setText(contact.getDisplayName());
+			getContactStatus(contact.getMostAvailableStatus(), txtUserStatus);
+		}
+
 		// Locate the viewpager in activity_main.xml
 		ViewPager viewPager = (ViewPager) view.findViewById(R.id.pager);
 
@@ -92,5 +111,43 @@ public class FragmentProfile extends Fragment {
 		public CharSequence getPageTitle(int position) {
 			return tabtitles[position];
 		}
+	}
+
+	private MainActivity getParentActivity() {
+		return ((MainActivity) getActivity());
+	}
+
+	private void getContactStatus(int mStatus, TextView status) {
+		switch (mStatus) {
+		case Presences.CHAT:
+			status.setText(R.string.contact_status_free_to_chat);
+			status.setTextColor(0xFF83b600);
+			break;
+		case Presences.ONLINE:
+			status.setText(R.string.contact_status_online);
+			status.setTextColor(0xFF83b600);
+			break;
+		case Presences.AWAY:
+			status.setText(R.string.contact_status_away);
+			status.setTextColor(0xFFffa713);
+			break;
+		case Presences.XA:
+			status.setText(R.string.contact_status_extended_away);
+			status.setTextColor(0xFFffa713);
+			break;
+		case Presences.DND:
+			status.setText(R.string.contact_status_do_not_disturb);
+			status.setTextColor(0xFFe92727);
+			break;
+		case Presences.OFFLINE:
+			status.setText(R.string.contact_status_offline);
+			status.setTextColor(0xFFe92727);
+			break;
+		default:
+			status.setText(R.string.contact_status_offline);
+			status.setTextColor(0xFFe92727);
+			break;
+		}
+
 	}
 }

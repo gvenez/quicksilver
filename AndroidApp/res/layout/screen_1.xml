@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.androidapp.MainActivity" >
+    android:clickable="true"
+    tools:context=".Screen1" >
 
     <RelativeLayout android:id="@+id/header"
         android:layout_width="match_parent"
@@ -27,22 +28,15 @@
             android:textSize="13sp"
             android:textStyle="bold" />
         
-        
-        <ImageView
-            android:id="@+id/imageView2"
+        <Button
+            android:id="@+id/btnDoneNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/textView2"
-            android:src="@drawable/tick" />
-        
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@null"
+            android:drawableLeft="@drawable/tick"
             android:text="DONE"
             android:textColor="@android:color/white"
             android:textSize="13sp"
@@ -82,26 +76,26 @@
 	        android:textSize="13sp"
 	        android:textStyle="bold" />
 	    
-	    
 	    <EditText
-	    	android:id="@+id/textView5"
+	        android:id="@+id/edtUserCountryCode"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_marginRight="@dimen/activity_horizontal_margin"
 	        android:layout_gravity="center_vertical"
-	        android:text="61"
-	        android:inputType="number"
+	        android:layout_marginRight="@dimen/activity_horizontal_margin"
 	        android:ems="3"
+	        android:inputType="number"
+	        android:text="91"
 	        android:textColor="@android:color/black"
 	        android:textSize="13sp"
 	        android:textStyle="bold" />
 	    
 	    <EditText
-	    	android:id="@+id/textView6"
+	        android:id="@+id/edtUserMobileNumber"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_marginRight="@dimen/activity_horizontal_margin"
 	        android:layout_gravity="center_vertical"
+	        android:layout_marginRight="@dimen/activity_horizontal_margin"
+	        android:hint="Enter mobile number"
 	        android:inputType="number"
 	        android:textColor="@android:color/black"
 	        android:textSize="13sp"

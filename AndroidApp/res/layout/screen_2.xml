@@ -2,9 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.androidapp.MainActivity" >
+    tools:context=".Screen2" >
 
-    <RelativeLayout android:id="@+id/header"
+    <RelativeLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/top_bar" >
@@ -15,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:src="@drawable/left_icon" />
-        
+
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
@@ -26,78 +27,66 @@
             android:textColor="@android:color/white"
             android:textSize="13sp"
             android:textStyle="bold" />
-        
-        
-        <ImageView
-            android:id="@+id/imageView2"
+
+        <Button
+            android:id="@+id/btnDoneUserVerification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/textView2"
-            android:src="@drawable/tick" />
-        
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@null"
+            android:drawableLeft="@drawable/tick"
             android:text="DONE"
             android:textColor="@android:color/white"
             android:textSize="13sp"
             android:textStyle="bold" />
-
     </RelativeLayout>
 
-    
-	<TextView
-    	android:id="@+id/textView3"
+    <TextView
+        android:id="@+id/txtMsgNotification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/header"
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginTop="30dp"
         android:gravity="center_horizontal"
-        android:text="We've sent an SMS with an activation code to your phone +61 481 347 000"
+        android:text="We&apos;ve sent an SMS with an activation code to your phone "
         android:textColor="@android:color/darker_gray"
         android:textSize="13sp"
         android:textStyle="bold" />
-	
-	
-	<EditText
-    	android:id="@+id/editText1"
+
+    <EditText
+        android:id="@+id/edtUserVerificationCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_below="@+id/txtMsgNotification"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/textView3"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginTop="20dp"
-        android:gravity="center_horizontal"
-        android:hint="Code"
-		android:inputType="number"
         android:ems="10"
+        android:gravity="center"
+        android:hint="Code"
+        android:inputType="number"
+        android:lines="1"
+        android:maxLength="6"
+        android:maxLines="1"
+        android:singleLine="true"
         android:textColor="@android:color/black"
         android:textSize="13sp"
         android:textStyle="bold" >
+
         <requestFocus />
-	</EditText>	    
-	
-	
-	<TextView
-    	android:id="@+id/textView4"
+    </EditText>
+
+    <Button
+        android:id="@+id/btnResend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/editText1"
-        android:layout_marginTop="20dp"
-        android:gravity="center_horizontal"
-        android:text="We will call you in 1:55"
-        android:ems="10"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="13sp"
-        android:textStyle="bold" />
-	
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="10dp"
+        android:text="Resend Code" />
+
 </RelativeLayout>

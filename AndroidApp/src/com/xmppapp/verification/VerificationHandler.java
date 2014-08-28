@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.telephony.TelephonyManager;
@@ -188,28 +189,35 @@ public class VerificationHandler {
 	}
 
 	/** Handle the incoming msg and verify code and its lifetime */
-	private void handleIncomingMsg(Intent mIntent) {
-		Bundle pudsBundle = mIntent.getExtras();
-		Object[] pdus = (Object[]) pudsBundle.get("pdus");
+	private void handleIncomingMsg(final Intent mIntent) {
+		Handler handler = new Handler();
+		handler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				Bundle pudsBundle = mIntent.getExtras();
+				Object[] pdus = (Object[]) pudsBundle.get("pdus");
 
-		// Get SMS
-		SmsMessage messages = SmsMessage.createFromPdu((byte[]) pdus[0]);
-		Log.i(TAG, "Incoming Msg: " + messages.getMessageBody());
+				// Get SMS
+				SmsMessage messages = SmsMessage.createFromPdu((byte[]) pdus[0]);
+				Log.i(TAG, "Incoming Msg: " + messages.getMessageBody());
 
-		String msgBody = messages.getMessageBody();
+				String msgBody = messages.getMessageBody();
 
-		if (msgBody.trim().length() == 27) {
-			String incomingCode = msgBody.substring(msgBody.length() - 6);
-			Log.i(TAG, "Code in incoming msg: " + incomingCode);
-			verificationInterface.onMsgCodeReceived(incomingCode);
-			checkForVerification(incomingCode);
-			return;
-		} else {
-			verificationInterface.onVerificationResult(Result.FAILED);
-			verificationInterface.onVerificationProcessEnd();
-			return;
-		}
+				if (msgBody.trim().length() == 27) {
+					final String incomingCode = msgBody.substring(msgBody.length() - 6);
+					Log.i(TAG, "Code in incoming msg: " + incomingCode);
+					verificationInterface.onMsgCodeReceived(incomingCode);
 
+					checkForVerification(incomingCode);
+
+					return;
+				} else {
+					verificationInterface.onVerificationResult(Result.FAILED);
+					verificationInterface.onVerificationProcessEnd();
+					return;
+				}
+			}
+		}, 2000);
 	}
 
 	/** Check the incoming code verification and send appropriate result */
@@ -219,6 +227,7 @@ public class VerificationHandler {
 		long mCurrentDateTime = new Date().getTime();
 		String mCodeSent = _Preferences.getString(EXTRA_CODE);
 		if (mCodeSent.matches(mCodeReceived)) {
+
 			if (getDifferenceBetweenDates(mCurrentDateTime, mMsgDateTime) <= MSG_VALIDATION_TIME) {
 				saveVerificationStatus(Result.PASSED);
 				verificationInterface.onVerificationResult(Result.PASSED);
