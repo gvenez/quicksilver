@@ -53,7 +53,7 @@ public class FragmentContact extends Fragment implements OnItemClickListener {
 
 		filterContacts(null);
 
-//		addContactList();
+		addContactList();
 		otherContactList();
 
 		gridview.setAdapter(new ContactGridAdapter(getActivity(), contacts));
@@ -66,16 +66,16 @@ public class FragmentContact extends Fragment implements OnItemClickListener {
 	}
 
 	private void addContactList() {
-//		String accountJid = getParentActivity().xmppConnectionService.getAccounts().get(0).getJid();
-//		String contactJid = "someone";
-//		Account account = getParentActivity().xmppConnectionService.findAccountByJid(accountJid);
-//		Contact contact = account.getRoster().getContact(contactJid);
-//		if (contact.showInRoster()) {
-//			Log.e(TAG, getString(R.string.contact_already_exists));
-//		} else {
-//			getParentActivity().xmppConnectionService.createContact(contact);
-//		}
-//		list = new ArrayList<Contact>();
+		String accountJid = getParentActivity().xmppConnectionService.getAccounts().get(0).getJid();
+		String contactJid = "someone";
+		Account account = getParentActivity().xmppConnectionService.findAccountByJid(accountJid);
+		Contact contact = account.getRoster().getContact(contactJid);
+		if (contact.showInRoster()) {
+			Log.e(TAG, getString(R.string.contact_already_exists));
+		} else {
+			getParentActivity().xmppConnectionService.createContact(contact);
+		}
+		list = new ArrayList<Contact>();
 
 //		Conversation conversation = getParentActivity().xmppConnectionService.findOrCreateConversation(contact.getAccount(), contact.getJid(), false);
 		// list.add(new ContactModel("Bobby", "Online via InTouch!",

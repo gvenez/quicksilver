@@ -337,16 +337,16 @@ public class MainActivity extends XmppActivity implements View.OnClickListener, 
 //		account.setOption(Account.OPTION_USECOMPRESSION, true);
 //		this.xmppConnectionService.createAccount(account);
 
-//		String accountJid = xmppConnectionService.getAccounts().get(0).getJid();
-//		String contactJid = "someone";
-//		Account account2 = xmppConnectionService.findAccountByJid(accountJid);
-//		Contact contact = account2.getRoster().getContact(contactJid);
-//		if (contact.showInRoster()) {
-//			Log.e(TAG, getString(R.string.contact_already_exists));
-//		} else {
-//			xmppConnectionService.createContact(contact);
-//		}
-//		Conversation conversation = xmppConnectionService.findOrCreateConversation(contact.getAccount(), contact.getJid(), false);
+		String accountJid = xmppConnectionService.getAccounts().get(0).getJid();
+		String contactJid = "someone";
+		Account account2 = xmppConnectionService.findAccountByJid(accountJid);
+		Contact contact = account2.getRoster().getContact(contactJid);
+		if (contact.showInRoster()) {
+			Log.e(TAG, getString(R.string.contact_already_exists));
+		} else {
+			xmppConnectionService.createContact(contact);
+		}
+		Conversation conversation = xmppConnectionService.findOrCreateConversation(contact.getAccount(), contact.getJid(), false);
 
 		// if ((getIntent().getAction() != null) &&
 		// (getIntent().getAction().equals(Intent.ACTION_VIEW) &&
