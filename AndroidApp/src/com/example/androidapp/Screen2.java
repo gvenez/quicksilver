@@ -94,6 +94,7 @@ public class Screen2 extends Fragment implements VerificationInterface {
 		switch (mResult) {
 		case PASSED:
 			showDialog("Congratulation! You have verified your number successfully.");
+			getParentActivity().createAccount();
 			break;
 		case FAILED:
 			showDialog("Sorry! Your number verification has been failed.");

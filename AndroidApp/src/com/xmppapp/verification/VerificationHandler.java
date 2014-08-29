@@ -68,7 +68,9 @@ public class VerificationHandler {
 		this.verificationInterface = verificationInterface;
 		fetchPhoneNumber();
 	}
-
+	public String getNumber() {
+		return _Preferences.getString(EXTRA_NUMBER);
+	}
 	// Incoming message broadcast receiver
 	private BroadcastReceiver reciverMessage = new BroadcastReceiver() {
 

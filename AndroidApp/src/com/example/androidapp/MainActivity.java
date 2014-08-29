@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SlidingPaneLayout.PanelSlideListener;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -62,6 +64,7 @@ public class MainActivity extends XmppActivity implements View.OnClickListener, 
 	private VerificationHandler verificationHandler;
 	private List<Conversation> conversationList = new ArrayList<Conversation>();
 	private Conversation selectedConversation = null;
+	
 	private OnConversationUpdate onConvChanged = new OnConversationUpdate() {
 
 		@Override
@@ -306,6 +309,23 @@ public class MainActivity extends XmppActivity implements View.OnClickListener, 
 
 	}
 
+	
+	/**
+	 * This needs to be stepped up. Right now using whatsapp model of phone number as account and IMEI as password
+	 */
+	public void createAccount()
+	{
+		
+		String accountNum = "a"+getVerificationHandler().getNumber();
+		TelephonyManager mngr = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE); 
+		 String password= mngr.getDeviceId();
+		Account account = new Account(accountNum, "im.getintouch.co", password);
+		account.setOption(Account.OPTION_USETLS, true);
+		account.setOption(Account.OPTION_USECOMPRESSION, true);
+		this.xmppConnectionService.createAccount(account);
+		
+	}
+	
 	@Override
 	protected void onBackendConnected() {
 		this.registerListener();
@@ -313,10 +333,10 @@ public class MainActivity extends XmppActivity implements View.OnClickListener, 
 			updateConversationList();
 		}
 		Log.e(TAG, "Backhand connected");
-		Account account = new Account("TestAccount", "im.getintouch.co", "12345");
-		account.setOption(Account.OPTION_USETLS, true);
-		account.setOption(Account.OPTION_USECOMPRESSION, true);
-		this.xmppConnectionService.createAccount(account);
+//		Account account = new Account("TestAccount", "im.getintouch.co", "12345");
+//		account.setOption(Account.OPTION_USETLS, true);
+//		account.setOption(Account.OPTION_USECOMPRESSION, true);
+//		this.xmppConnectionService.createAccount(account);
 
 		String accountJid = xmppConnectionService.getAccounts().get(0).getJid();
 		String contactJid = "someone";
