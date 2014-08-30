@@ -1,7 +1,7 @@
 package com.developer.adapter;
 
 
-import com.example.androidapp.R;
+import com.alphasigma.kronos.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -20,8 +20,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.example.androidapp.MainActivity;
-import com.example.androidapp.R;
+import com.alphasigma.kronos.MainActivity;
+import com.alphasigma.kronos.R;
 import com.xmppapp.xmpp.entities.Account;
 import com.xmppapp.xmpp.entities.Contact;
 import com.xmppapp.xmpp.entities.Conversation;

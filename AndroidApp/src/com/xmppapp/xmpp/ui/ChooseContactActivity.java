@@ -18,7 +18,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.developer.adapter.ListItemAdapter;
-import com.example.androidapp.R;
+import com.alphasigma.kronos.R;
 import com.xmppapp.xmpp.entities.Account;
 import com.xmppapp.xmpp.entities.Contact;
 import com.xmppapp.xmpp.entities.ListItem;

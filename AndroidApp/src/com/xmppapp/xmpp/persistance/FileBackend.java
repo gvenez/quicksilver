@@ -17,7 +17,7 @@ import android.net.Uri;
 import android.util.Log;
 import android.util.LruCache;
 
-import com.example.androidapp.R;
+import com.alphasigma.kronos.R;
 import com.xmppapp.xmpp.entities.Conversation;
 import com.xmppapp.xmpp.entities.Message;
 import com.xmppapp.xmpp.xmpp.jingle.JingleFile;

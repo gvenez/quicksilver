@@ -19,7 +19,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
-import com.example.androidapp.R;
+import com.alphasigma.kronos.R;
 import com.xmppapp.xmpp.entities.Account;
 import com.xmppapp.xmpp.entities.Contact;
 import com.xmppapp.xmpp.entities.Conversation;

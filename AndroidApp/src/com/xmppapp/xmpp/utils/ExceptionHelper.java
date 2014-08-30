@@ -19,7 +19,7 @@ import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 import android.util.Log;
 
-import com.example.androidapp.R;
+import com.alphasigma.kronos.R;
 import com.xmppapp.xmpp.entities.Account;
 import com.xmppapp.xmpp.entities.Conversation;
 import com.xmppapp.xmpp.entities.Message;

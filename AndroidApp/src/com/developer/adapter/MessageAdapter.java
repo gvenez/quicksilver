@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.developer.model.Messages;
-import com.example.androidapp.R;
+import com.alphasigma.kronos.R;
 import com.xmppapp.xmpp.entities.Contact;
 import com.xmppapp.xmpp.entities.Message;
 import com.xmppapp.xmpp.utils.UIHelper;

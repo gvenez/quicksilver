@@ -22,8 +22,8 @@ import android.widget.TextView;
 
 import com.developer.model.ChatModel;
 import com.developer.utils.Global;
-import com.example.androidapp.MainActivity;
-import com.example.androidapp.R;
+import com.alphasigma.kronos.MainActivity;
+import com.alphasigma.kronos.R;
 import com.xmppapp.xmpp.entities.Contact;
 import com.xmppapp.xmpp.entities.Conversation;
 import com.xmppapp.xmpp.entities.Message;

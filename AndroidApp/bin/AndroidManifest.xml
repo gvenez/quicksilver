@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.androidapp"
+    package="com.alphasigma.kronos"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -24,10 +24,10 @@
         android:required="true" />
 
     <permission
-        android:name="com.example.androidapp.permission.MAPS_RECEIVE"
+        android:name="com.alphasigma.kronos.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.example.androidapp.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="com.alphasigma.kronos.permission.MAPS_RECEIVE" />
 
     <uses-sdk android:minSdkVersion="14" />
 
@@ -40,7 +40,7 @@
 
         <provider
             android:name="com.xmppapp.xmpp.services.ImageProvider"
-            android:authorities="com.example.androidapp.images"
+            android:authorities="com.alphasigma.kronos.images"
             android:exported="true" />
 
         <receiver android:name="com.xmppapp.xmpp.services.EventReceiver" >
@@ -52,7 +52,7 @@
         </receiver>
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.alphasigma.kronos.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -67,7 +67,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCrwbl6y8yoy8jczC0wxfdFVNlWY_jHnps" />
+            android:value="AIzaSyCh0ZRu308fMQCk8qGafPs7jyYWNenl-rI" />
 
         <activity android:name="de.duenndns.ssl.MemorizingActivity" />
     </application>

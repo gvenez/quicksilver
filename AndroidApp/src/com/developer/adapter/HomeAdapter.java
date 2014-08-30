@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.androidapp.R;
+import com.alphasigma.kronos.R;
 
 public class HomeAdapter extends BaseAdapter{
 

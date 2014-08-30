@@ -3,7 +3,7 @@ package com.developer.adapter;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import com.example.androidapp.R;
+import com.alphasigma.kronos.R;
 
 import android.content.Context;
 import android.content.res.AssetManager;

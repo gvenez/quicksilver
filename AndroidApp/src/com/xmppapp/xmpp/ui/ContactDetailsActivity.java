@@ -27,7 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
-import com.example.androidapp.R;
+import com.alphasigma.kronos.R;
 import com.xmppapp.xmpp.crypto.PgpEngine;
 import com.xmppapp.xmpp.entities.Account;
 import com.xmppapp.xmpp.entities.Contact;

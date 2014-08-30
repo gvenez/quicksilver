@@ -3,7 +3,7 @@ package com.developer.adapter;
 import java.util.ArrayList;
 
 import com.developer.adapter.EmoticonsGridAdapter.KeyClickListener;
-import com.example.androidapp.R;
+import com.alphasigma.kronos.R;
 
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;

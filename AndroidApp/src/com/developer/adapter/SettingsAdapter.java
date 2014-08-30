@@ -4,7 +4,7 @@ package com.developer.adapter;
 import com.developer.utils.Const;
 import com.developer.utils.SafeJSONArray;
 import com.developer.utils.SafeJSONObject;
-import com.example.androidapp.R;
+import com.alphasigma.kronos.R;
 
 import android.content.Context;
 import android.util.Log;
