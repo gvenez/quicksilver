@@ -86,17 +86,6 @@ public class Screen1 extends Fragment implements VerificationInterface {
 
 	@Override
 	public void onVerificationResult(Result mResult) {
-		/*
-		 * switch (mResult) { case PASSED:
-		 * showDialog("Congratulation! You have verified your number successfully."
-		 * ); break; case FAILED:
-		 * showDialog("Sorry! Your number verification has been failed.");
-		 * break; case EXPIRED:
-		 * showDialog("Sorry!! This code has been expired."); break;
-		 * 
-		 * default: break; } Log.d(TAG, "Verification Result in fragment: " +
-		 * mResult);
-		 */
 	}
 
 	@Override

@@ -39,11 +39,12 @@ import com.xmppapp.verification.Result;
 import com.xmppapp.verification.VerificationHandler;
 import com.xmppapp.verification.VerificationHandler.VerificationInterface;
 import com.xmppapp.xmpp.entities.Account;
-import com.xmppapp.xmpp.entities.Contact;
 import com.xmppapp.xmpp.entities.Conversation;
 import com.xmppapp.xmpp.services.XmppConnectionService.OnConversationUpdate;
 import com.xmppapp.xmpp.ui.XmppActivity;
-
+/*
+ * Hide the menu and map button during the first two screens. Display it only when the main screen starts up
+ */
 public class MainActivity extends XmppActivity implements View.OnClickListener, OnItemClickListener, PanelSlideListener, VerificationInterface {
 	public static final String VIEW_CONVERSATION = "viewConversation";
 	public static final String CONVERSATION = "conversationUuid";
@@ -118,7 +119,7 @@ public class MainActivity extends XmppActivity implements View.OnClickListener, 
 
 		mLayout = (ImprovedSlidingPaneLayout) findViewById(R.id.sliding_panel_layout);
 		mLayout.setPanelSlideListener(this);
-
+//Hide the menu during the first two screens TODO
 		// set menu options on the left side menu in home screen
 		MenuAdapter adapter = new MenuAdapter(this);
 		menu_list_view = (ListView) findViewById(R.id.menu_list);

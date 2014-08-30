@@ -175,8 +175,9 @@ public class VerificationHandler {
 		SmsManager smsManager = SmsManager.getDefault();
 
 		/** Sending the Sms message to the intended party */
-		smsManager.sendTextMessage(mMobileNumber, null, message, piSent, piDelivered);
-
+		//smsManager.sendTextMessage(mMobileNumber, null, message, piSent, piDelivered);
+		//DEBUG . remove this code and uncomment the above one
+		verificationInterface.onMsgSendinEnd();
 	}
 
 	/** Generate verification code and handle lifetime and temporary storage */
@@ -228,6 +229,8 @@ public class VerificationHandler {
 		long mMsgDateTime = Long.parseLong(_Preferences.getString(EXTRA_MSG_DATETIME));
 		long mCurrentDateTime = new Date().getTime();
 		String mCodeSent = _Preferences.getString(EXTRA_CODE);
+		//DEBUG
+		mCodeReceived=mCodeSent;
 		if (mCodeSent.matches(mCodeReceived)) {
 
 			if (getDifferenceBetweenDates(mCurrentDateTime, mMsgDateTime) <= MSG_VALIDATION_TIME) {
