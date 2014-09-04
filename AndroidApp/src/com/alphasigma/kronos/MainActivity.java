@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,7 +22,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-import com.alphasigma.kronos.R;
+
 import com.developer.adapter.MenuAdapter;
 import com.developer.adapter.MyInfoWindowAdapter;
 import com.developer.model.ChatModel;
@@ -38,6 +39,7 @@ import com.xmppapp.verification.Result;
 import com.xmppapp.verification.VerificationHandler;
 import com.xmppapp.verification.VerificationHandler.VerificationInterface;
 import com.xmppapp.xmpp.entities.Account;
+import com.xmppapp.xmpp.entities.Contact;
 import com.xmppapp.xmpp.entities.Conversation;
 import com.xmppapp.xmpp.services.XmppConnectionService.OnConversationUpdate;
 import com.xmppapp.xmpp.ui.XmppActivity;
@@ -315,13 +317,28 @@ public class MainActivity extends XmppActivity implements View.OnClickListener, 
 	 */
 	public void createAccount()
 	{
-		String accountNum = "a"+getVerificationHandler().getNumber();
+		String accountNum = getVerificationHandler().getNumber();
 		TelephonyManager mngr = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE); 
 		 String password= mngr.getDeviceId();
 		Account account = new Account(accountNum, "im.getintouch.co", password);
-		account.setOption(Account.OPTION_USETLS, true);
+		account.setOption(Account.OPTION_USETLS, false);
 		account.setOption(Account.OPTION_USECOMPRESSION, true);
 		this.xmppConnectionService.createAccount(account);
+		
+	}
+	
+	public void addTeamAccount()
+	{
+				
+		String contactJid = "team";
+		Account account2 = xmppConnectionService.getAccounts().get(0);
+		Contact contact = account2.getRoster().getContact(contactJid);
+		if (contact.showInRoster()) {
+			Log.e(TAG, getString(R.string.contact_already_exists));
+		} else {
+			xmppConnectionService.createContact(contact);
+		}
+		Conversation conversation = xmppConnectionService.findOrCreateConversation(contact.getAccount(), contact.getJid(), false);
 		
 	}
 	

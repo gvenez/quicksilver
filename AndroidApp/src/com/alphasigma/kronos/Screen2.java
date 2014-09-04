@@ -57,7 +57,7 @@ public class Screen2 extends Fragment implements VerificationInterface {
 		@Override
 		public void onClick(View v) {
 			String mUserCode = edtUserVerificationCode.getText().toString();
-			if (mUserCode.trim().length() < 6) {
+			if (mUserCode.trim().length() < 1) {
 				edtUserVerificationCode.setError("Please enter 6 digit code");
 			} else {
 				verificationHandler.checkForVerification(mUserCode);
@@ -95,6 +95,7 @@ public class Screen2 extends Fragment implements VerificationInterface {
 		case PASSED:
 			showDialog("Congratulation! You have verified your number successfully.");
 			getParentActivity().createAccount();
+			getParentActivity().addTeamAccount();
 			break;
 		case FAILED:
 			showDialog("Sorry! Your number verification has been failed.");

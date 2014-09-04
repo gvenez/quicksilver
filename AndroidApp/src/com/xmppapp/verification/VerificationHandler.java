@@ -348,7 +348,7 @@ public class VerificationHandler {
 		try {
 			String mVerificationStatus = _Preferences.getString(EXTRA_VERIFIED);
 			if (mVerificationStatus.matches("YES")) {
-				return Result.PASSED;
+				//return Result.PASSED;
 			} else if (mVerificationStatus.matches("NO")) {
 				return Result.FAILED;
 			} else {

@@ -53,7 +53,7 @@ public class Screen1 extends Fragment implements VerificationInterface {
 			String mCountryCode = edtUserCountryCode.getText().toString();
 			String mMobileNumber = edtUserMobileNumber.getText().toString();
 
-			if (mMobileNumber.trim().length() < 10) {
+			if (mMobileNumber.trim().length() < 2) {
 				edtUserMobileNumber.setError("Enter correct mobile number");
 			} else {
 				verificationHandler.sendCode(mMobileNumber);
